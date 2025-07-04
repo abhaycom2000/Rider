@@ -1,24 +1,38 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { UserDataContaxt } from '../context/UserContext'
 
 function UserSignUp() {
+    const navigate = useNavigate()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [firstname, setFirstname] = useState('')
     const [lastname, setLastname] = useState('')
     const [userData, setUserData] = useState({})
 
-    const handleSubmit = (e) => {
+    const { user, setUser } = useContext(UserDataContaxt)
+
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        setUserData({
+        const newUser = {
             fullname: {
                 firstname: firstname,
                 lastname: lastname
             },
             email: email,
             password: password
-        })
-        console.log(userData);
+        }
+
+        const response = await axios.post(`http://localhost:4000/users/register`, newUser)
+
+        if (response.status === 201) {
+            const data = response.data
+
+            setUser(data.user)
+            localStorage.setItem('token', data.token)
+            navigate('/home')
+        }
 
         setEmail(" ")
         setFirstname(" ")
@@ -43,7 +57,7 @@ function UserSignUp() {
                     <h3 className='text-lg font-medium mb-2'>Enter Password</h3>
                     <input value={password} onChange={(e) => setPassword(e.target.value)} className='bg-[#eeeeee] mb-6 rounded px-4 py-2 border w-full text-base placeholder:text-base' type="password" placeholder='password' required />
 
-                    <button className='bg-[#111] text-[#fff] font-semibold mb-3 rounded px-4 py-2 w-full text-lg placeholder:text-base' >SignUp</button>
+                    <button className='bg-[#111] text-[#fff] font-semibold mb-3 rounded px-4 py-2 w-full text-lg placeholder:text-base' >Create Account</button>
                 </form>
                 <p className='text-center'>Already have a account? <Link to={'/login'} className='text-blue-600'>Login here</Link></p>
             </div>

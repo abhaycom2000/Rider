@@ -13,7 +13,7 @@ function UserContext({ children }) {
 
     return (
         <div>
-            <UserDataContaxt.Provider value={user}>
+            <UserDataContaxt.Provider value={{ user, setUser }}>
                 {children}
             </UserDataContaxt.Provider>
         </div>
