@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { Route, Routes } from 'react-router-dom'
 import Start from './pages/Start';
@@ -12,6 +11,9 @@ import UserLogout from './pages/UserLogout';
 import CaptainHome from './pages/CaptainHome';
 import CaptainProtectedWraper from './pages/CaptainProtectedWraper';
 import CaptainLogout from './pages/CaptainLogout';
+import Riding from './pages/Riding';
+import CaptainRiding from './pages/CaptainRiding';
+import 'remixicon/fonts/remixicon.css';
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
       <Routes>
         <Route path={'/'} element={<Start />} />
         <Route path={'/login'} element={<UserLogin />} />
+        <Route path={'/riding'} element={<Riding />} />
+        <Route path={'/captain-riding'} element={<CaptainRiding />} />
         <Route path={'/signup'} element={<UserSignUp />} />
         <Route path={'/captain-login'} element={<CaptainLogin />} />
         <Route path={'/captain-signup'} element={<CaptainSignUp />} />
