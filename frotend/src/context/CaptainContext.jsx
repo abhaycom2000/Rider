@@ -20,6 +20,8 @@ import React, { createContext, useContext, useState } from 'react';
         setError,
         updateCaptain
     }
+    console.log('CaptainContext value:', value);
+    
 
     return (
         <CaptainDataContext.Provider value={value}>
